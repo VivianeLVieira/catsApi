@@ -1,31 +1,28 @@
-import { useState } from "react";
+const Search = (props) => {
 
-function Search() {
-  const [searchResult, setSearchResult] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
+    const data = new FormData(event.target);
+    props.setSearchQuery(data.get("breedType"));
   };
 
-  const handleChange = (event) => {
-    setSearchResult(event.target.value);
-  };
+  // const handleChange = (event) => { //setting searchQuery on handleSubmit to avoid unnecessary requests to the server
+    //props.setSearchQuery(event.target.value);
+  // };
 
   return (
     <div>
       <form className="search-form" onSubmit={handleSubmit}>
         <input
+          name="breedType"
           placeholder="Search by breed"
           type="text"
-          onChange={handleChange}
+          //onChange={handleChange}
         ></input>
-      </form>
-      <form className="search-form">
-        <input placeholder="Search by temprament" type="text"></input>
-      </form>
-      <form className="search-form">
+        <input placeholder="Search by temperament" type="text"></input>
         <input placeholder="Search by country of origin" type="text"></input>
+        <input type="submit" value="Search"></input>
       </form>
-      <input type="submit" value="Search"></input>
     </div>
   );
 }

@@ -1,24 +1,39 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Search from "./Search";
-import { useState } from "react";
+import {fetchCats} from "../api"
+import Error from "./Error";
 
-function CatContent() {
-  
+const CatContent = () => {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [catList, setCatList] = useState([]) //temporary list 
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, serError] = useState(null)
 
   useEffect(() => {
-    fetch(`https://api.thecatapi.com/v1/breeds?limit=10&page=0`);
-  }, [])
-    .then((result) => {
-      result.json();
-    })
-    .then((data) => {
-      console.log(data, "<<<< data");
-      setBreedSearchResult(result);
-    });
+    if(searchQuery.length === 0) {
+      return 
+    }
+    setIsLoading(true)
+    fetchCats(searchQuery)
+      .then((catsFromApi) => {
+        setCatList(catsFromApi)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        serError(err)
+      })
+  }, [searchQuery])
+    
+  if(error) {
+    return <Error error ={error} />
+  }
+  if(isLoading) {
+    return <p>Loading...</p>
+  }
 
   return (
     <div>
-      <Search />
+      <Search setSearchQuery={setSearchQuery}/>
     </div>
   );
 }
