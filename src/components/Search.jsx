@@ -7,7 +7,7 @@ const Search = (props) => {
   };
 
   // const handleChange = (event) => { //setting searchQuery on handleSubmit to avoid unnecessary requests to the server
-    //props.setSearchQuery(event.target.value);
+  //props.setSearchQuery(event.target.value);
   // };
 
   return (

@@ -3,7 +3,7 @@ import axios from "axios";
 const catsApi = axios.create({
     baseURL: "https://api.thecatapi.com/v1/images",
     headers:{ //TODO: remover antes de comitar
-        'x-api-key':''
+        'x-api-key':'live_FrJJVGXcKM3B0Cn3c0NLGyJOIHkvCMYH2nR77H24bBjtAUhw0TD0pk6mipB1gPOB'
     }
 })
 
